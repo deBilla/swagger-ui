@@ -1,4 +1,1047 @@
----
-url: "https://petstore.swagger.io/v2/swagger.json"
-dom_id: "#swagger-ui"
-validatorUrl: "https://validator.swagger.io/validator"
+openapi: 3.0.0
+info:
+  title: MPCF - QalBox
+  version: 1.0.0
+servers:
+  - url: 'http://{{host}}'
+  - url: 'https://cdn.media.qalbox.com'
+  - url: 'https://us-central1-muslim-pro-app-staging.cloudfunctions.net'
+components:
+  securitySchemes:
+    noauthAuth:
+      type: http
+      scheme: noauth
+    bearerAuth:
+      type: http
+      scheme: bearer
+paths:
+  /QalBox-SearchMedia:
+    post:
+      tags:
+        - General
+      summary: Qalbox-SearchMediaMultipleCategories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  language_code: en
+                  query: ''
+                  result_by:
+                    - field: id
+                    - field: title
+                    - field: description
+                    - field: thumbnail_image
+                    - field: series_meta_seasons_count
+                    - field: duration
+                  sort_by:
+                    - field: added_date
+                      order: desc
+                  filter_by:
+                    any:
+                      - all:
+                          - field: type
+                            values:
+                              - series
+                              - movie
+                          - field: genres
+                            values: []
+                      - all:
+                          - field: type
+                            values:
+                              - series
+                              - movie
+                          - field: tags
+                            values:
+                              - meta_beautiful_creations
+                  paginate:
+                    page: 1
+                    size: 20
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: authority
+          in: header
+          schema:
+            type: string
+          example: us-central1-muslim-pro-app-staging.cloudfunctions.net
+        - name: accept
+          in: header
+          schema:
+            type: string
+          example: '*/*'
+        - name: accept-language
+          in: header
+          schema:
+            type: number
+          example: 'en-GB,en-US;q=0.9,en;q=0.8'
+        - name: authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJSUzI1NiIsImtpZCI6IjE1YzJiNDBhYTJmMzIyNzk4NjY2YTZiMzMyYWFhMDNhNjc3MzAxOWIiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiRGltdXRodSBXaWNrcmFtYW5heWFrZSIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BRWRGVHA3X0l5QXI0cXhHaUxHUlhPX2NGWkVMckhBNC1XeDZJVFgwOUk5RT1zOTYtYyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9tdXNsaW0tcHJvLWFwcC1zdGFnaW5nIiwiYXVkIjoibXVzbGltLXByby1hcHAtc3RhZ2luZyIsImF1dGhfdGltZSI6MTY3NDAzMTY4MiwidXNlcl9pZCI6ImNUT0toS2FaVVlPUm1CNXZLWHhaRkZJOER5cjEiLCJzdWIiOiJjVE9LaEthWlVZT1JtQjV2S1h4WkZGSThEeXIxIiwiaWF0IjoxNjc3NDc0NzkwLCJleHAiOjE2Nzc0NzgzOTAsImVtYWlsIjoiZGltdXRodUBiaXRzbWVkaWEuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDE2MDAzOTA1NTM2MTU4NzI0MTAiXSwiZW1haWwiOlsiZGltdXRodUBiaXRzbWVkaWEuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.HoswlTsVk1S2DFCcTtST8kCly-xqHtcF36rB4sbwMoC3XMmfc2lEAusoFZdYoOOfzhWnpln5mP8jfB-Q8O7pjaZptlZjnN8Hd_BAq0D7icSQnb4xpWRf1v791xbY-x7vHM3W_aSY9lxDpgGA_Gnucs5IqcrX364ZDe_ZTE8tBDEtQBxRmIyMut8GHuD6dqd3fSPxFf0XaWoGSHcKXFBkEozX9Om_n1yYZ50cn0yailVGwlx9Q_0NNmYW4Dx8Qwar3iki2d0qrj8KPqATMJBKX51MHTSzt8eptUf5WV3-1WEWDyu6HU9BVzekkHDQAIFSJ4bayHVG8nHAgu_4tJorVQ
+        - name: content-type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: origin
+          in: header
+          schema:
+            type: string
+          example: 'http://localhost:9000'
+        - name: referer
+          in: header
+          schema:
+            type: string
+          example: 'http://localhost:9000/'
+        - name: sec-ch-ua
+          in: header
+          schema:
+            type: string
+          example: '"Chromium";v="110", "Not A(Brand";v="24", "Google Chrome";v="110"'
+        - name: sec-ch-ua-mobile
+          in: header
+          schema:
+            type: string
+          example: '?0'
+        - name: sec-ch-ua-platform
+          in: header
+          schema:
+            type: string
+          example: '"macOS"'
+        - name: sec-fetch-dest
+          in: header
+          schema:
+            type: string
+          example: empty
+        - name: sec-fetch-mode
+          in: header
+          schema:
+            type: string
+          example: cors
+        - name: sec-fetch-site
+          in: header
+          schema:
+            type: string
+          example: cross-site
+        - name: user-agent
+          in: header
+          schema:
+            type: number
+          example: >-
+            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36
+        - name: x-user-refresh-token
+          in: header
+          schema:
+            type: string
+          example: >-
+            QVBKV044ZGdaQ1ppSUpXTS1rUjNQTHRZY0UtMW50WFh5ZDFUZkpiSm1WN2FKMHJPOGdnWjRwRlNfV3VlZlZuamFVbzdQUzlyWU1KUVg3UnpVbzhMY2JKd1JPd1pzTGR6QmxwYzV2T2xmMlZPZzFhZ0k3ZW9aRkIteTdRcHJyYlFQSDBQU3JuLTBRRHZpQlJkVXY3cTloQ180bnNUZmNMTndGUGVwRUN3ZUZmZWg0eGFKZzB2elZDM1UzcnduTHhZNEVJbU85eDJna2tyRHY0MFV5SXZEeFlJSWg2QjQ4eGxEWk5QbmMyTHhZUGxkc2dBZW5uZEJuSmRmME1lWjR2VGNVYUR3US02V0NrLXBlZE51VkVuNTc5ZmlSQWp4RG1ScU5scFlwYTNLY3VTXzV6SXBOZUtLcVhPaFNYUG1ZQ0tkVTMzemNWdVJScGdoREMyRlRqMmFMdHk3TmczZ0RQU1c5Wm9Ud2c4WTlSWVlIaTlUWW9yTWZzaXNJWUV5aFBQWVNmNUx5MnBEaHUxUEUwbkExaTVaZ25oajU2ZUU0ZVpweXQ1Y3FSeE5oX1QzTjNmMUxiNHVQQnRRcnRsLTE5N0VxYWl1NERBR0FnZQ==
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-GetTopSearches:
+    post:
+      tags:
+        - General
+      summary: QalBox-GetTopSearches
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: test
+                  language_code: en
+                  count: 10
+                  filter_by:
+                    - type: results
+                      values: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-AddToPlaylist:
+    post:
+      tags:
+        - General
+      summary: QalBox-RemoveFromPlaylist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: test2
+                  media_ids:
+                    - 2e143a4c-9557-4e83-8b24-a0328d53a8ca
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-GetPlaylist:
+    post:
+      tags:
+        - General
+      summary: QalBox-GetPlaylist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  country_code: SG
+                  uid: test2
+                  paginate:
+                    page: 1
+                    size: 20
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-UpdatePlayStatus:
+    post:
+      tags:
+        - General
+      summary: QalBox-UpdatePlayStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: test2
+                  media_id: 297943f3-827c-403d-a9c1-1171359f0f62
+                  current_time_in_seconds: 555
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-UpdatePlayComplete:
+    post:
+      tags:
+        - General
+      summary: QalBox-UpdatePlayComplete
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: test2
+                  media_id: b62dac55-a5c9-4ec2-9e85-6068835a0b1c
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-RateMedia:
+    post:
+      tags:
+        - General
+      summary: QalBox-RateMedia
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: test2
+                  media_id: 297943f3-827c-403d-a9c1-1171359f0f62
+                  rating: 1
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-GetMediaSeries:
+    post:
+      tags:
+        - General
+      summary: QalBox-GetMediaSeries
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  series_id: frozen_planet
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-GetMediaCollection:
+    post:
+      tags:
+        - General
+      summary: QalBox-GetMediaCollection
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: test2
+                  collection_id: famous_five
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-GetSimilar:
+    post:
+      tags:
+        - General
+      summary: QalBox-GetSimilar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: test2
+                  media_id: a354dd27-b855-4d34-a4cd-8a80397fd12e
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-GetNext:
+    post:
+      tags:
+        - General
+      summary: QalBox-GetNext
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: test2
+                  media_id: 0057b734-ee68-493a-aa81-b532bc3a081d
+                  is_media_resuming: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-GetMedia:
+    post:
+      tags:
+        - General
+      summary: QalBox-GetMedia
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: dAQdegp5NifxqntPUG2Kal8FexK2
+                  media_ids:
+                    - 0057b734-ee68-493a-aa81-b532bc3a081d
+                    - 4349c95f-c120-421e-952c-7afcfd77ca8a
+                  language_code: en
+                  country_code: SG
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /GetConnectedDevices:
+    post:
+      tags:
+        - General
+      summary: GetConnectedDevices
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: dlYopDhVTsN4pof4X4hqfkrGen02
+                  feature_flags:
+                    - qalbox_
+                    - muslim_pro
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /GetProfile:
+    post:
+      tags:
+        - General
+      summary: GetProfile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: dlYopDhVTsN4pof4X4hqfkrGen02
+                  feature_flag: qalbox
+                  profile_id: '0'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /AddConnectedDevice:
+    post:
+      tags:
+        - General
+      summary: AddConnectedDevice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: dlYopDhVTsN4pof4X4hqfkrGen02
+                  device_id: '12345678'
+                  app_build: '12080101'
+                  app_version: 12.8.1
+                  manufacturer: Apple
+                  name: iPhoneX
+                  os: masOS Big Sur
+                  os_version: '15.0'
+                  browser_version: 123.0.1
+                  platform: web
+                  feature_flags:
+                    qalbox: true
+                    muslim_pro: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /RemoveConnectedDevice:
+    post:
+      tags:
+        - General
+      summary: RemoveConnectedDevice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: dlYopDhVTsN4pof4X4hqfkrGen02
+                  device_id: 12345678-2
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-GetFeatured:
+    post:
+      tags:
+        - General
+      summary: QalBox-GetFeatured
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: test2
+                  language_code: en
+                  media_type: browse
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-GetDisplayCategories:
+    post:
+      tags:
+        - General
+      summary: QalBox-GetDisplayCategories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: test2
+                  type: browse
+                  active: true
+                  language_code: fr
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-GetPageDetails:
+    post:
+      tags:
+        - General
+      summary: QalBox-GetPageDetails
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: test2
+                  type: browse
+                  active: true
+                  active_only: true
+                  language_code: EN
+                  paginate:
+                    page: 1
+                    size: 5
+                  media_paginate:
+                    page: 1
+                    size: 20
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-GetTopGenres:
+    post:
+      tags:
+        - General
+      summary: QalBox-GetTopGenres
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  paginate:
+                    page: 1
+                    size: 10
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-UserQuestionaire:
+    post:
+      tags:
+        - General
+      summary: QalBox-UserQuestionaire
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: '2'
+                  genres:
+                    - travel
+                    - documentary
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-SearchAutoComplete:
+    post:
+      tags:
+        - General
+      summary: QalBox-SearchAutoComplete
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: test
+                  language_code: en
+                  query: a
+                  sort_by:
+                    - field: meta_length
+                      order: asc
+                  paginate:
+                    page: 1
+                    size: 10
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-GetContinuePlaying:
+    post:
+      tags:
+        - General
+      summary: QalBox-GetContinuePlaying
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: UUzSRoa7WzTyrvT5ptgIMAHmDY32
+                  paginate:
+                    page: 1
+                    size: 2
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-DeleteContinuePlaying:
+    post:
+      tags:
+        - General
+      summary: QalBox-DeleteContinuePlaying
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: test2
+                  media_id: b62dac55-a5c9-4ec2-9e85-6068835a0b1c
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-GetPlayHistory:
+    post:
+      tags:
+        - General
+      summary: QalBox-GetPlayHistory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: test2
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-GetWatchHistory:
+    post:
+      tags:
+        - General
+      summary: QalBox-GetWatchHistory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: UUzSRoa7WzTyrvT5ptgIMAHmDY32
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-GetRateHistory:
+    post:
+      tags:
+        - General
+      summary: QalBox-GetRateHistory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  uid: test2
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-media/add:
+    post:
+      tags:
+        - General
+      summary: QalBox-media/add
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                language_code: EN
+                media:
+                  - type: movie
+                    language: en
+                    title: Famous Five 1
+                    description: 'The Famous Five Julian, Dick, Anne, George and Timmy'
+                    featured: true
+                    featured_from: '2022-03-02T02:12:37.293Z'
+                    featured_to: '2022-03-02T02:12:37.293Z'
+                    maturity_rating: PG13
+                    max_quality: HD 1080P
+                    tags:
+                      - collection
+                      - crime
+                      - young
+                      - adventure
+                    genres:
+                      - Crime
+                      - Adventure
+                      - Family
+                    countries_allowed:
+                      - SG
+                    countries_disallowed:
+                      - LK
+                    url: >-
+                      https://d2zihajmogu5jn.cloudfront.net/bipbop_16x9_variant.m3u8
+                    thumbnail_image:
+                      small: 'http://i3.ytimg.com/vi/0i7Xb5mwFlM/hqdefault.jpg'
+                      large: 'http://i3.ytimg.com/vi/0i7Xb5mwFlM/hqdefault.jpg'
+                    preview_image:
+                      small: 'http://i3.ytimg.com/vi/0i7Xb5mwFlM/hqdefault.jpg'
+                      large: 'http://i3.ytimg.com/vi/0i7Xb5mwFlM/hqdefault.jpg'
+                    featured_image:
+                      small: 'http://i3.ytimg.com/vi/0i7Xb5mwFlM/hqdefault.jpg'
+                      large: 'http://i3.ytimg.com/vi/0i7Xb5mwFlM/hqdefault.jpg'
+                    title_image:
+                      small: 'http://i3.ytimg.com/vi/0i7Xb5mwFlM/hqdefault.jpg'
+                      large: 'http://i3.ytimg.com/vi/0i7Xb5mwFlM/hqdefault.jpg'
+                    previews:
+                      - 'https://www.youtube.com/watch?v=0i7Xb5mwFlM'
+                    duration: 123
+                    play_next_after: '122:52'
+                    released_date: '2012-01-26'
+                    released_year: 2012
+                    directors:
+                      - Mike Marzuk
+                    cast:
+                      - Valeria Eisenbart
+                      - Quirin Oettl
+                    added_date: '2022-03-02T02:12:37.293Z'
+                    added_year: 2022
+                    licence_termination: '2022-03-02T02:12:37.293Z'
+                    licence_renewal: '2022-03-02T02:12:37.293Z'
+                    licence_renewal_reminder: '2022-03-02T02:12:37.293Z'
+                    liked: 3223
+                    unliked: 232
+                    played: 23242
+      parameters:
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: 4246eae4-2f82-4bd6-84e1-e26ce9b94686
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-media/get:
+    post:
+      tags:
+        - General
+      summary: QalBox-media/get
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                media_ids:
+                  - 041a404a-238d-47b5-8abe-61a92b374a49
+                language_code: EN
+      parameters:
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: 4246eae4-2f82-4bd6-84e1-e26ce9b94686
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-displayCategories/add:
+    post:
+      tags:
+        - General
+      summary: QalBox-displayCategories/add
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                categories:
+                  - name: Test
+                    type: browse
+                    language: en
+                    order: 1
+                    active: true
+                    tags:
+                      - tag1
+                      - tag2
+                    genres:
+                      - genre1
+                      - genre2
+                    countries_allowed: []
+                    countries_disallowed: []
+                  - name: Test 2
+                    type: browse
+                    language: ar
+                    order: 1
+                    active: true
+                    tags:
+                      - tag1
+                      - tag2
+                    genres:
+                      - genre1
+                      - genre2
+                    countries_allowed:
+                      - SG
+                    countries_disallowed: []
+                  - name: Test 3
+                    type: browse
+                    language: en
+                    order: 1
+                    active: false
+                    tags:
+                      - tag1
+                      - tag2
+                    genres:
+                      - genre1
+                      - genre2
+                    countries_allowed: []
+                    countries_disallowed: []
+                  - name: Test 4
+                    type: films
+                    language: en
+                    order: 1
+                    active: false
+                    tags:
+                      - tag1
+                      - tag2
+                    genres:
+                      - genre1
+                      - genre2
+                    countries_allowed: []
+                    countries_disallowed:
+                      - LK
+      parameters:
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: 4246eae4-2f82-4bd6-84e1-e26ce9b94686
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-displayCategories/get:
+    post:
+      tags:
+        - General
+      summary: QalBox-displayCategories/get
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                type: Browse
+                active_only: false
+                country_code: SG
+                language_code: en
+      parameters:
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: 4246eae4-2f82-4bd6-84e1-e26ce9b94686
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-displayCategories/update:
+    post:
+      tags:
+        - General
+      summary: QalBox-displayCategories/update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                categories:
+                  - id: 1
+                    order: 2
+                  - id: 2
+                    name: Test 3
+                    language: fr
+                    active: false
+                  - id: 3
+                    tags:
+                      - tag5
+                      - tag6
+                    countries_allowed:
+                      - US
+                  - id: 4
+                    active: true
+                    genres:
+                      - genre3
+                      - genre4
+                    countries_disallowed:
+                      - SG
+      parameters:
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: 4246eae4-2f82-4bd6-84e1-e26ce9b94686
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-displayCategories/delete:
+    post:
+      tags:
+        - General
+      summary: QalBox-displayCategories/delete
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                category_ids:
+                  - 1
+                  - 2
+      parameters:
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+          example: 4246eae4-2f82-4bd6-84e1-e26ce9b94686
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /encoded/media/qalbox/a_goal_for_freedom/a_goal_for_freedom_2259173572_4.mp4:
+    options:
+      tags:
+        - General
+      summary: options-mp4
+      requestBody:
+        content: {}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /GetUserData:
+    post:
+      tags:
+        - General
+      summary: GetUserData
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data: {}
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-ValidatePromo:
+    post:
+      tags:
+        - General
+      summary: QalBox-ValidatePromo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  promoCode: TESTFREEMONTH
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /QalBox-GetNewlyAddedThisWeekMedia:
+    post:
+      tags:
+        - General
+      summary: New Request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                data:
+                  language_code: en
+                  country_code: SG
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+
